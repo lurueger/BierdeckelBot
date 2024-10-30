@@ -1,0 +1,11 @@
+/Users/lukasrueger/BierdeckelBot/gcode-service/svg2gcode/target/release/deps/libcodespan-d36ade17e5cdb5c7.rmeta: /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/lib.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/file.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/index.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/location.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/span.rs
+
+/Users/lukasrueger/BierdeckelBot/gcode-service/svg2gcode/target/release/deps/libcodespan-d36ade17e5cdb5c7.rlib: /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/lib.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/file.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/index.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/location.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/span.rs
+
+/Users/lukasrueger/BierdeckelBot/gcode-service/svg2gcode/target/release/deps/codespan-d36ade17e5cdb5c7.d: /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/lib.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/file.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/index.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/location.rs /Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/span.rs
+
+/Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/lib.rs:
+/Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/file.rs:
+/Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/index.rs:
+/Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/location.rs:
+/Users/lukasrueger/.cargo/registry/src/index.crates.io-6f17d22bba15001f/codespan-0.11.1/src/span.rs:
