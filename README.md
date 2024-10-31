@@ -6,8 +6,7 @@ The BierdeckelBot was created by me, **Lukas Rüger**, as part of the Practical 
 
 # Demo Video & Bierdeckel Examples
 This video shows the full process:
-
-![Demovideo of the BierdeckelBot](/documentation-material/TUM_BierdeckelBot_Demo-Video_v2_low-res.mp4)
+https://github.com/user-attachments/assets/cfdea8d6-ebd7-4296-8547-ba164cf937f5
 
 Here are some examples for finished Bierdeckel:
 ![Image of the pikachu Bierdeckel](/documentation-material/images/bierdeckel-pikachu-example.jpeg)
