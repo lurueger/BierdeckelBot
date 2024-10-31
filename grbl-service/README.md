@@ -26,12 +26,16 @@ Note that the grbl-service can also be used as a standalone service outside of t
 *Tip:* You can use the regular UGS software with a graphic UI to identify the USB port in use. If you connect your machine via USB, it shows you the name of the USB port, where a GRBL-machine is currently connected.
 
 ### Step 2: Install Dependencies & update PORT and BAUD_RATE
-1. Ensure Python & Java are installed and active in your environment.
-2. Install required packages with:
-    ```
-    pip install -r requirements.txt
-    ```
-3. In `grbl-service.py`, set the correct port and BAUD rate for your CNC machine by updating the `PORT` and `BAUD_RATE` variables on lines 12 and 13.
+1. Ensure Python & Java are installed and active in your environment. Also ensure that you're in this directory (`grbl-service`)
+2. Navigate to the `grbl-service` directory:
+```
+cd grbl-service
+```
+3. Install required Python packages with:
+```
+pip install -r requirements.txt
+```
+4. In `grbl-service.py`, set the correct port and BAUD rate for your CNC machine by updating the `PORT` and `BAUD_RATE` variables on lines 12 and 13.
 
 ### Step 3: Run the Service
 Start the Flask app to run the service and expose the endpoints:
