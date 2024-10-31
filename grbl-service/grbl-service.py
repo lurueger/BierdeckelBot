@@ -14,6 +14,8 @@ BAUD_RATE = "115200" # Replace if necessary, however most systems should be usin
 # This state is used to log whether a G-code execution is currently running (False by default)
 execution_state = {"running": False}
 
+# ------------------ Functions ------------------
+
 # grbl-service uses the headless version of UniversalGcodeSender to send gcode-files to the GRBL of the CNC machine
 # This functionality is extracted in this function, which expects a path to a gcode file and then sends that file to the GRBL 
 # The method returns a dictionary containing the status and message
@@ -67,6 +69,38 @@ def execute_gcode_async(gcode_text):
         execution_state["running"] = False
     return response
 
+# ------------------ Endpoints ------------------
+
+# Endpoint to home the CNC machine (remains synchronous, as the time is always short and can be waited for)
+@app.route('/home', methods=['POST'])
+def home():
+    global execution_state
+    if execution_state["running"]:
+        return jsonify({"status": "error", "message": "Another operation is in progress."}), 400
+    execution_state["running"] = True
+    try:
+        # Command to send homing command to the CNC machine
+        command = [
+            "java", "-cp", "UniversalGcodeSender.jar",
+            "com.willwinder.ugs.cli.TerminalClient",
+            "--controller", "GRBL",
+            "--port", PORT, # You can change this variable in line 12
+            "--baud", BAUD_RATE, # You can change this variable in line 13
+            "--home"  # This triggers the homing command
+        ]
+        # Run the command and capture output
+        result = subprocess.run(command, capture_output=True, text=True)
+        if result.returncode == 0:
+            return jsonify({"status": "success", "output": result.stdout})
+        else:
+            return jsonify({"status": "error", "output": result.stderr}), 500
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+    finally:
+        execution_state["running"] = False  # Reset state after execution completes
+
+
 # Endpoint to check the current status of the G-code execution, to prevent multiple running requests.
 @app.route('/status', methods=['GET'])
 def status():
@@ -104,35 +138,6 @@ def execute_gcode():
     # Start a new thread for G-code execution
     threading.Thread(target=execute_gcode_async, args=(gcode_text,)).start()
     return jsonify({"status": "success", "message": "G-code execution started asynchronously."})
-
-# Endpoint to home the CNC machine (remains synchronous, as the time is always short and can be waited for)
-@app.route('/home', methods=['POST'])
-def home():
-    global execution_state
-    if execution_state["running"]:
-        return jsonify({"status": "error", "message": "Another operation is in progress."}), 400
-    execution_state["running"] = True
-    try:
-        # Command to send homing command to the CNC machine
-        command = [
-            "java", "-cp", "UniversalGcodeSender.jar",
-            "com.willwinder.ugs.cli.TerminalClient",
-            "--controller", "GRBL",
-            "--port", PORT, # You can change this variable in line 12
-            "--baud", BAUD_RATE, # You can change this variable in line 13
-            "--home"  # This triggers the homing command
-        ]
-        # Run the command and capture output
-        result = subprocess.run(command, capture_output=True, text=True)
-        if result.returncode == 0:
-            return jsonify({"status": "success", "output": result.stdout})
-        else:
-            return jsonify({"status": "error", "output": result.stderr}), 500
-
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
-    finally:
-        execution_state["running"] = False  # Reset state after execution completes
 
 # This endpoint moves the y-axis of the CNC-machine to a position that provides best access for robot movements
 # The gcode for this movement is in the file "robot-position.gcode", which is sent to the GRBL
