@@ -1,11 +1,19 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import subprocess
 import os
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='build')
 CORS(app)  # Enable CORS for all routes
+
+# Serve the React app as a frontend for the G-code service
+@app.route('/')
+@app.route('/<path:path>')
+def serve_react_app(path=''):
+    if path and os.path.exists(f'build/{path}'):
+        return send_from_directory(app.static_folder, path)
+    return send_from_directory(app.static_folder, 'index.html')
 
 # ----------------- Global Variables -----------------
 # These execution state variables are used to keep track of whether a CPEE process is connected and if there's a file in the printing queue
@@ -280,4 +288,4 @@ def get_gcode_files():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5001)
+    app.run(debug=True, host="0.0.0.0")

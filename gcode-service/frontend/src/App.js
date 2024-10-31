@@ -3,9 +3,6 @@ import axios from "axios";
 import "./App.css";
 
 function App() {
-  // BASE_URL --> IMPORTANT: Change this variable to the URL of the hosted gcode-service in Production
-  const BASE_URL = "http://localhost:5001";
-
   // State for execution variables
   const [connected, setConnected] = useState(false);
   const [printingQueue, setPrintingQueue] = useState("none");
@@ -82,7 +79,7 @@ function App() {
     const formData = new FormData();
     formData.append("file", file);
     try {
-      await axios.post(`${BASE_URL}/svg2gcode`, formData, {
+      await axios.post(`/svg2gcode`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       showPopupMessage("Gcode file was successfully created.", "success");
@@ -96,7 +93,7 @@ function App() {
   // Function for printing a file (= putting it into the printing queue)
   const handlePrintFile = async () => {
     if (selectedFile && printingQueue === "empty") {
-      await axios.post(`${BASE_URL}/setPrintingQueue`, {
+      await axios.post(`/setPrintingQueue`, {
         filename: selectedFile,
       });
       showPopupMessage(`File "${selectedFile}" was put into the printing queue`, "success");
@@ -106,7 +103,7 @@ function App() {
   // Function for deleting a file from the files-folder
   const handleDeleteFile = async (filename) => {
     try {
-      await axios.post(`${BASE_URL}/deleteFile`, { filename });
+      await axios.post(`/deleteFile`, { filename });
       showPopupMessage("File was successfully deleted.", "success");
       fetchFileList();
     } catch (error) {
@@ -148,7 +145,7 @@ function App() {
       return;
     }
     try {
-      await axios.post(`${BASE_URL}/text2gcode`, {
+      await axios.post(`/text2gcode`, {
         text,
         fontSize,
         filename,
@@ -168,7 +165,7 @@ function App() {
   // Hook for fetching file list from the server for the Gcode Filemanagement
   const fetchFileList = useCallback(async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/gcodeFiles`);
+      const response = await axios.get(`/gcodeFiles`);
       if (response.data.status === "success") {
         setFileList(response.data.files);
       } else {
@@ -182,11 +179,11 @@ function App() {
   // Hook for fetching CPEE connection state & printing queue state
   const fetchExecutionState = useCallback(async () => {
     try {
-      const connectionResponse = await axios.get(`${BASE_URL}/getConnectionState`);
+      const connectionResponse = await axios.get(`/getConnectionState`);
       if (connectionResponse.data.status === "success") {
         setConnected(connectionResponse.data.connected);
       }
-      const printingQueueResponse = await axios.get(`${BASE_URL}/getPrintingQueue`);
+      const printingQueueResponse = await axios.get(`/getPrintingQueue`);
       if (printingQueueResponse.data.status === "success") {
         setPrintingQueue(printingQueueResponse.data.printingQueue);
       }
